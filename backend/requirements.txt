@@ -15,4 +15,4 @@ torch
 Pillow
 httpx
 duckduckgo-search
-multipart
+python-multipart
