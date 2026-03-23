@@ -201,9 +201,11 @@ async def factcheck_stream(request: FactCheckRequest):
 
                 yield f"data: {json.dumps(payload)}\n\n"
 
-            # Capture final state
-            if kind == "on_chain_end" and name == "LangGraph":
-                final_state = event["data"].get("output", {})
+            # Capture final state / report data robustly
+            if kind == "on_chain_end":
+                output_data = data.get("output", {})
+                if isinstance(output_data, dict) and output_data.get("report"):
+                    final_state = output_data
 
         if final_state and final_state.get("report"):
             yield f"data: {json.dumps({'type': 'report', 'data': final_state['report']})}\n\n"
