@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer style={{
       borderTop: "1px solid var(--border)",
-      padding: "24px 40px",
+      padding: "20px 32px",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "flex-start",
@@ -12,21 +12,20 @@ export default function Footer() {
         <div style={{
           fontFamily: "'Playfair Display', serif",
           fontWeight: 700,
-          fontSize: 18,
-          marginBottom: 6
+          fontSize: 22,
+          marginBottom: 3
         }}>VeritasAI</div>
-        <div style={{ fontSize: 13, color: "var(--text-muted)", maxWidth: 280, lineHeight: 1.5, fontWeight: 500 }}>
-          © 2025 VeritasAI. The Digital Broadsheet. All claims verified with academic precision.
+        <div style={{ fontSize: 14, color: "var(--text-muted)", maxWidth: 280, lineHeight: 1, fontWeight: 500 }}>
         </div>
       </div>
-      <nav style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "flex-end" }}>
+      <nav style={{ display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "flex-end", marginTop: 2 }}>
         {["PRIVACY POLICY", "TERMS OF SERVICE", "FACT-CHECK STANDARDS", "CONTACT EDITORIAL"].map(item => (
           <span key={item} style={{
-            fontSize: 13,
+            fontSize: 14,
             color: "var(--text-muted)",
             letterSpacing: 0.8,
             cursor: "pointer",
-            fontWeight: 600
+            fontWeight: 700
           }}>{item}</span>
         ))}
       </nav>

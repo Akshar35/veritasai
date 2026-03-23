@@ -69,16 +69,16 @@ export default function PipelineView({ events }) {
   return (
     <div style={{ animation: "fadeUp 0.3s ease" }}>
       {/* Title */}
-      <div style={{ textAlign: "center", marginBottom: 48 }}>
+      <div style={{ textAlign: "center", marginBottom: 24 }}>
         <h2 style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: 40,
+          fontSize: 32,
           fontWeight: 900,
           color: "var(--navy)",
-          marginBottom: 8
+          marginBottom: 6
         }}>Analyzing Claims...</h2>
         <p style={{
-          fontSize: 13,
+          fontSize: 12,
           color: "var(--text-muted)",
           letterSpacing: 2,
           fontWeight: 600,
@@ -86,98 +86,109 @@ export default function PipelineView({ events }) {
         }}>CASE REFERENCE: {CASE_REF}</p>
       </div>
 
-      {/* Stages */}
-      <div style={{
-        background: "var(--white)",
-        border: "1px solid var(--border)",
-        padding: "32px",
-        marginBottom: 24
+      {/* Two Column Layout */}
+      <div style={{ 
+        display: "flex", 
+        gap: 24, 
+        alignItems: "stretch",
+        flexWrap: "wrap", /* Fallback for very small screens */
       }}>
-        {STAGES.map((stage, i) => {
-          const status = getStageStatus(stage.key)
-          return (
-            <div key={stage.key} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 24,
-              marginBottom: i < STAGES.length - 1 ? 20 : 0,
-              opacity: status === "waiting" ? 0.4 : 1,
-              transition: "opacity 0.3s"
-            }}>
-              {/* Stage label */}
-              <div style={{
-                width: 80,
-                fontSize: 13,
-                fontWeight: 700,
-                letterSpacing: 1,
-                color: status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "var(--text-muted)",
-                fontFamily: "'DM Sans', sans-serif",
-                textAlign: "right",
-                flexShrink: 0
-              }}>{stage.label}</div>
-
-              {/* Icon */}
-              <div style={{
-                width: 36, height: 36,
-                borderRadius: "50%",
-                border: `2px solid ${status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "var(--border)"}`,
-                background: status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "transparent",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                flexShrink: 0,
-                transition: "all 0.3s"
+        {/* Left: Stages (60%) */}
+        <div style={{
+          flex: "6 1 0%",
+          minWidth: 400,
+          background: "var(--white)",
+          border: "1px solid var(--border)",
+          padding: "24px"
+        }}>
+          {STAGES.map((stage, i) => {
+            const status = getStageStatus(stage.key)
+            return (
+              <div key={stage.key} style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                marginBottom: i < STAGES.length - 1 ? 12 : 0,
+                opacity: status === "waiting" ? 0.4 : 1,
+                transition: "opacity 0.3s"
               }}>
-                {status === "done" && <span style={{ color: "white", fontSize: 14 }}>✓</span>}
-                {status === "running" && (
-                  <div style={{
-                    width: 10, height: 10,
-                    borderRadius: "50%",
-                    background: "white",
-                    animation: "blink 1s infinite"
-                  }} />
-                )}
-                {status === "waiting" && (
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--border)" }} />
-                )}
-              </div>
-
-              {/* Stage card */}
-              <div style={{
-                flex: 1,
-                padding: "12px 16px",
-                border: `1px solid ${status === "running" ? "var(--navy)" : "var(--border)"}`,
-                background: status === "running" ? "var(--navy)" : "var(--white)",
-                transition: "all 0.3s"
-              }}>
+                {/* Stage label */}
                 <div style={{
-                  fontSize: 16,
+                  width: 80,
+                  fontSize: 12,
                   fontWeight: 700,
-                  color: status === "running" ? "white" : "var(--text)",
-                  marginBottom: 4
-                }}>{stage.title}</div>
+                  letterSpacing: 1,
+                  color: status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "var(--text-muted)",
+                  fontFamily: "'DM Sans', sans-serif",
+                  textAlign: "right",
+                  flexShrink: 0
+                }}>{stage.label}</div>
+
+                {/* Icon */}
                 <div style={{
-                  fontSize: 14,
-                  color: status === "running" ? "rgba(255,255,255,0.6)" : "var(--text-muted)"
+                  width: 30, height: 30,
+                  borderRadius: "50%",
+                  border: `2px solid ${status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "var(--border)"}`,
+                  background: status === "done" ? "var(--green)" : status === "running" ? "var(--navy)" : "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0,
+                  transition: "all 0.3s"
                 }}>
-                  {status === "running" ? stage.sub + "..." : stage.sub}
+                  {status === "done" && <span style={{ color: "white", fontSize: 13 }}>✓</span>}
                   {status === "running" && (
-                    <span style={{
-                      display: "inline-block",
-                      width: 32,
-                      height: 2,
-                      background: "rgba(255,255,255,0.4)",
-                      marginLeft: 8,
-                      verticalAlign: "middle"
+                    <div style={{
+                      width: 8, height: 8,
+                      borderRadius: "50%",
+                      background: "white",
+                      animation: "blink 1s infinite"
                     }} />
                   )}
+                  {status === "waiting" && (
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--border)" }} />
+                  )}
+                </div>
+
+                {/* Stage card */}
+                <div style={{
+                  flex: 1,
+                  padding: "10px 16px",
+                  border: `1px solid ${status === "running" ? "var(--navy)" : "var(--border)"}`,
+                  background: status === "running" ? "var(--navy)" : "var(--white)",
+                  transition: "all 0.3s"
+                }}>
+                  <div style={{
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: status === "running" ? "white" : "var(--text)",
+                    marginBottom: 2
+                  }}>{stage.title}</div>
+                  <div style={{
+                    fontSize: 13,
+                    color: status === "running" ? "rgba(255,255,255,0.6)" : "var(--text-muted)"
+                  }}>
+                    {status === "running" ? stage.sub + "..." : stage.sub}
+                    {status === "running" && (
+                      <span style={{
+                        display: "inline-block",
+                        width: 32,
+                        height: 2,
+                        background: "rgba(255,255,255,0.4)",
+                        marginLeft: 8,
+                        verticalAlign: "middle"
+                      }} />
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
 
-      {/* Terminal */}
-      <TerminalLog logs={logs} />
+        {/* Right: Terminal (40%) */}
+        <div style={{ flex: "4 1 0%", minWidth: 300, display: "flex", flexDirection: "column" }}>
+          <TerminalLog logs={logs} />
+        </div>
+      </div>
     </div>
   )
 }

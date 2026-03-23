@@ -15,7 +15,8 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
   const fileRef = useRef(null)
 
   return (
-    <div style={{ animation: "fadeUp 0.4s ease" }}>
+    
+    <div style={{ maxWidth: 800, margin: "0 auto", animation: "fadeUp 0.4s ease" }}>
       <style>{`
         .verify-btn:hover { background: var(--navy-light) !important; }
         .sample-chip:hover { background: var(--bg3) !important; }
@@ -24,10 +25,10 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
       `}</style>
 
       {/* Hero */}
-      <div style={{ marginBottom: 48 }}>
+      <div style={{ marginBottom: 32 }}>
         <h1 style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: 56,
+          fontSize: 48,
           fontWeight: 900,
           lineHeight: 1.05,
           color: "var(--navy)",
@@ -56,7 +57,7 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
       <div style={{
         background: "var(--white)",
         border: "1px solid var(--border)",
-        padding: "32px",
+        padding: "24px",
       }}>
         {/* Tabs */}
         <div style={{
@@ -98,7 +99,7 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
             ? "https://example.com/news-article..."
             : "Enter claims or paste a URL here..."
           }
-          rows={inputType === "url" ? 2 : 5}
+          rows={inputType === "url" ? 2 : 3}
           style={{
             width: "100%",
             border: "1px solid var(--border)",

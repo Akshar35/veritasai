@@ -14,8 +14,8 @@ export default function TerminalLog({ logs }) {
       padding: "16px",
       fontFamily: "'JetBrains Mono', monospace",
       fontSize: 13,
-      minHeight: 140,
-      maxHeight: 280,
+      flex: 1,
+      height: "100%",
       overflowY: "auto"
     }}>
       <div style={{

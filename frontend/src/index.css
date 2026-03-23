@@ -25,6 +25,16 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html {
+  font-size: 14px;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 html, body {
   overflow-x: hidden;
   width: 100%;
