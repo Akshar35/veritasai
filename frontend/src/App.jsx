@@ -31,7 +31,7 @@ export default function App() {
     setLastSubmit({ input, inputType })
 
     try {
-      const res = await fetch("http://localhost:8000/factcheck/stream", {
+      const res = await fetch("https://akshar35-veritasai.hf.space/factcheck/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,7 +96,7 @@ export default function App() {
     try {
       let res
       if (type === "url") {
-        res = await fetch("http://localhost:8000/detect-image/url", {
+        res = await fetch("https://akshar35-veritasai.hf.space/detect-image/url", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ url })
@@ -104,7 +104,7 @@ export default function App() {
       } else {
         const formData = new FormData()
         formData.append("file", file)
-        res = await fetch("http://localhost:8000/detect-image/upload", {
+        res = await fetch("https://akshar35-veritasai.hf.space/detect-image/upload", {
           method: "POST",
           body: formData
         })

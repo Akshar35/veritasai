@@ -71,15 +71,15 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
               className="tab-btn"
               onClick={() => setInputType(t.toLowerCase())}
               style={{
-                padding: "8px 20px",
+                padding: "10px 24px",
                 border: "none",
                 background: "transparent",
-                fontSize: 15,
-                fontWeight: 700,
+                fontSize: 18,
+                fontWeight: 800,
                 letterSpacing: 1,
                 cursor: "pointer",
                 color: inputType === t.toLowerCase() ? "var(--navy)" : "var(--text-muted)",
-                borderBottom: inputType === t.toLowerCase() ? "2px solid var(--navy)" : "2px solid transparent",
+                borderBottom: inputType === t.toLowerCase() ? "3px solid var(--navy)" : "3px solid transparent",
                 marginBottom: -1,
                 fontFamily: "'DM Sans', sans-serif",
                 transition: "all 0.15s"
@@ -117,23 +117,24 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
         {/* Sample chips */}
         <div style={{ marginBottom: 20 }}>
           <p style={{
-            fontSize: 13,
+            fontSize: 15,
             color: "var(--text-muted)",
-            letterSpacing: 1,
-            marginBottom: 8,
-            fontWeight: 700
+            letterSpacing: 1.5,
+            marginBottom: 12,
+            fontWeight: 800
           }}>TRY ASKING —</p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             {SAMPLES.map(s => (
               <button
                 key={s.label}
                 className="sample-chip"
                 onClick={() => { setInput(s.value); setInputType(s.type) }}
                 style={{
-                  padding: "8px 16px",
+                  padding: "10px 20px",
                   border: "1px solid var(--border)",
                   background: "var(--bg)",
-                  fontSize: 13,
+                  fontSize: 15,
+                  fontWeight: 600,
                   color: "var(--text-dim)",
                   cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif",
@@ -151,12 +152,12 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
           className="verify-btn"
           style={{
             width: "100%",
-            padding: "16px",
+            padding: "18px",
             background: input.trim() ? "var(--navy)" : "var(--bg3)",
             color: input.trim() ? "white" : "var(--text-muted)",
             border: "none",
-            fontSize: 14,
-            fontWeight: 700,
+            fontSize: 17,
+            fontWeight: 800,
             letterSpacing: 2.5,
             cursor: input.trim() ? "pointer" : "not-allowed",
             fontFamily: "'DM Sans', sans-serif",
@@ -203,10 +204,10 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
             {/* OR divider */}
             <div style={{
               textAlign: "center",
-              margin: "16px 0",
+              margin: "20px 0",
               color: "var(--text-muted)",
-              fontSize: 13,
-              fontWeight: 700,
+              fontSize: 15,
+              fontWeight: 800,
               letterSpacing: 2
             }}>— OR —</div>
 
@@ -247,11 +248,11 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
                   }
                 }}
               />
-              <div style={{ fontSize: 32, marginBottom: 8 }}>📷</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-dim)" }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>📷</div>
+              <div style={{ fontSize: 17, fontWeight: 700, color: "var(--text-dim)" }}>
                 {imageFile ? imageFile.name : "Drop image here or click to upload"}
               </div>
-              <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 6 }}>
+              <div style={{ fontSize: 14, color: "var(--text-muted)", marginTop: 8, fontWeight: 500 }}>
                 Supports JPG, PNG, WEBP
               </div>
             </div>
@@ -286,12 +287,12 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
               className="verify-btn"
               style={{
                 width: "100%",
-                padding: "16px",
+                padding: "18px",
                 background: (imageUrl.trim() || imageFile) ? "var(--navy)" : "var(--bg3)",
                 color: (imageUrl.trim() || imageFile) ? "white" : "var(--text-muted)",
                 border: "none",
-                fontSize: 14,
-                fontWeight: 700,
+                fontSize: 17,
+                fontWeight: 800,
                 letterSpacing: 2.5,
                 cursor: (imageUrl.trim() || imageFile) ? "pointer" : "not-allowed",
                 fontFamily: "'DM Sans', sans-serif",
@@ -302,19 +303,12 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
         )}
 
         {/* Bottom trust indicators */}
-        <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: 20,
-          paddingTop: 16,
-          borderTop: "1px solid var(--border)"
-        }}>
-          <span style={{ fontSize: 13, color: "var(--text-muted)", letterSpacing: 0.5, fontWeight: 500 }}>
-            ● END-TO-END ENCRYPTION ENABLED
-          </span>
-          <span style={{ fontSize: 13, color: "var(--text-muted)", letterSpacing: 0.5, fontWeight: 500 }}>
-            ● CONNECTED TO 142 ACADEMIC REPOSITORIES
-          </span>
+        <div style={{ marginTop: 24, padding: "24px 32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 32 }}>
+            <div style={{ display: "flex", gap: 10, color: "var(--text-muted)", fontSize: 15, fontWeight: 700, letterSpacing: 1 }}>
+              <span style={{ color: "var(--green)" }}>●</span> LIVE WEB SEARCH
+            </div>
+          </div>
         </div>
       </div>
     </div>

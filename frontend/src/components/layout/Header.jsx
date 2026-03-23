@@ -15,16 +15,16 @@ export default function Header({ onReset, showReset }) {
     }}>
       <span style={{
         fontFamily: "'Playfair Display', serif",
-        fontWeight: 700,
-        fontSize: 22,
+        fontWeight: 900,
+        fontSize: 32,
         color: "var(--navy)",
-        letterSpacing: "-0.3px"
+        letterSpacing: "-0.5px"
       }}>VeritasAI</span>
 
       <nav style={{ display: "flex", gap: 28, flex: 1 }}>
         {["ARCHIVE", "METHODOLOGY", "SOURCES"].map(item => (
           <span key={item} style={{
-            fontSize: 13,
+            fontSize: 15,
             fontWeight: 700,
             color: "var(--text-muted)",
             letterSpacing: 1,
@@ -39,8 +39,8 @@ export default function Header({ onReset, showReset }) {
           background: "var(--navy)",
           color: "white",
           border: "none",
-          padding: "10px 20px",
-          fontSize: 13,
+          padding: "12px 24px",
+          fontSize: 15,
           fontWeight: 700,
           letterSpacing: 1,
           cursor: "pointer",
@@ -51,8 +51,8 @@ export default function Header({ onReset, showReset }) {
           background: "var(--navy)",
           color: "white",
           border: "none",
-          padding: "10px 20px",
-          fontSize: 13,
+          padding: "12px 24px",
+          fontSize: 15,
           fontWeight: 700,
           letterSpacing: 1,
           cursor: "pointer",
