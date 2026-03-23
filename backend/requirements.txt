@@ -14,5 +14,5 @@ transformers
 torch
 Pillow
 httpx
-duckduckgo-search
+ddgs
 python-multipart

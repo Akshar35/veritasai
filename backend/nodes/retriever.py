@@ -4,7 +4,7 @@ import time
 from tavily import TavilyClient
 from langchain_google_genai import ChatGoogleGenerativeAI
 from state import FactCheckState
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
