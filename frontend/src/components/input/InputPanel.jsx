@@ -4,6 +4,8 @@ import AdvancedSettings from "./AdvancedSettings"
 const SAMPLES = [
   { label: "\"The latest economic report says...\"", value: "The US economy grew by 2.8% in 2024. Inflation has returned to the Fed's 2% target. Unemployment is at a 50-year low of 3.4%. The stock market reached all-time highs in January 2025.", type: "text" },
   { label: "\"A claim about recent climate data...\"", value: "Global temperatures in 2024 were the hottest ever recorded. Arctic sea ice reached a record low in September 2024. Carbon emissions fell for the first time in a decade.", type: "text" },
+  { label: "🔗 BBC News article", value: "https://www.bbc.com/news/science-environment-56837908", type: "url" },
+  { label: "🔗 Wikipedia: Moon landing", value: "https://en.wikipedia.org/wiki/Moon_landing", type: "url" },
 ]
 
 export default function InputPanel({ onSubmit, onImageDetect, settings, setSettings }) {

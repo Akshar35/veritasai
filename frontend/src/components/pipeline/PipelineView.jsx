@@ -13,7 +13,7 @@ const STAGES = [
 
 const CASE_REF = `VA-${Math.floor(Math.random()*900+100)}-${Math.floor(Math.random()*9000+1000)}-X`
 
-export default function PipelineView({ events }) {
+export default function PipelineView({ events, onCancel }) {
   const { nodeStatus, logs } = useMemo(() => {
     const nodeStatus = {}
     const logs = []
@@ -84,6 +84,12 @@ export default function PipelineView({ events }) {
           fontWeight: 600,
           fontFamily: "'JetBrains Mono', monospace"
         }}>CASE REFERENCE: {CASE_REF}</p>
+        <p style={{
+          fontSize: 13,
+          color: "var(--text-dim)",
+          marginTop: 8,
+          fontWeight: 500
+        }}>⏱ Estimated time: 30–90 seconds depending on claim count</p>
       </div>
 
       {/* Two Column Layout */}
@@ -189,6 +195,27 @@ export default function PipelineView({ events }) {
           <TerminalLog logs={logs} />
         </div>
       </div>
+
+      {/* Cancel button */}
+      {onCancel && (
+        <div style={{ textAlign: "center", marginTop: 24 }}>
+          <button
+            onClick={onCancel}
+            style={{
+              padding: "12px 32px",
+              background: "transparent",
+              color: "var(--text-dim)",
+              border: "1px solid var(--border)",
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: 1.5,
+              cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+              transition: "border-color 0.2s, color 0.2s"
+            }}
+          >✕ CANCEL VERIFICATION</button>
+        </div>
+      )}
     </div>
   )
 }

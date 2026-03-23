@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Header from "./components/layout/Header"
 import Footer from "./components/layout/Footer"
 import InputPanel from "./components/input/InputPanel"
@@ -13,6 +13,7 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState("")
   const [lastSubmit, setLastSubmit] = useState(null)
   const [imageResult, setImageResult] = useState(null)
+  const abortRef = useRef(null)
   const [settings, setSettings] = useState({
     extractor_model: "groq",
     verifier_model: "groq",
@@ -22,7 +23,17 @@ export default function App() {
     min_source_tier: 4
   })
 
+  const handleCancel = () => {
+    if (abortRef.current) abortRef.current.abort()
+    setPhase("input")
+    setEvents([])
+  }
+
   const handleSubmit = async ({ input, inputType }) => {
+    if (abortRef.current) abortRef.current.abort()
+    const controller = new AbortController()
+    abortRef.current = controller
+
     setInputText(input)
     setPhase("loading")
     setEvents([])
@@ -38,7 +49,8 @@ export default function App() {
           input,
           input_type: inputType,
           ...settings
-        })
+        }),
+        signal: controller.signal
       })
 
       const reader = res.body.getReader()
@@ -78,6 +90,7 @@ export default function App() {
         }
       }
     } catch (err) {
+      if (err.name === "AbortError") return
       setErrorMsg("Connection error. Is the backend running?")
       setPhase("error")
     }
@@ -149,7 +162,7 @@ export default function App() {
           />
         )}
         {phase === "loading" && (
-          <PipelineView events={events} />
+          <PipelineView events={events} onCancel={handleCancel} />
         )}
         {phase === "report" && report && (
           <AccuracyReport report={report} inputText={inputText} />
