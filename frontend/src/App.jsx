@@ -89,38 +89,42 @@ export default function App() {
   }
 
   const handleImageDetect = async ({ type, url, file }) => {
-    setPhase("loading")
-    setImageResult(null)
-    setEvents([{ type: "node_start", node: "ai_detector", message: "🤖 Analyzing image for AI generation..." }])
+  setPhase("loading")
+  setImageResult(null)
+  setEvents([{ type: "node_start", node: "ai_detector", message: "🤖 Analyzing image for AI generation..." }])
 
-    try {
-      let res
-      if (type === "url") {
-        res = await fetch("https://akshar35-veritasai.hf.space/detect-image/url", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url })
-        })
-      } else {
-        const formData = new FormData()
-        formData.append("file", file)
-        res = await fetch("https://akshar35-veritasai.hf.space/detect-image/upload", {
-          method: "POST",
-          body: formData
-        })
-      }
-
-      const data = await res.json()
-      setImageResult({
-        ...data,
-        imagePreview: type === "url" ? url : URL.createObjectURL(file)
+  try {
+    let res
+    if (type === "url") {
+      res = await fetch("https://akshar35-veritasai.hf.space/detect-image/url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
       })
-      setPhase("imageResult")
-    } catch (err) {
-      setErrorMsg("Image detection failed. Is the backend running?")
-      setPhase("error")
+    } else {
+      const formData = new FormData()
+      formData.append("file", file)
+      res = await fetch("https://akshar35-veritasai.hf.space/detect-image/upload", {
+        method: "POST",
+        body: formData
+      })
     }
+
+    const data = await res.json()
+    console.log("Image detection response:", data)
+
+    setImageResult({
+      ...data,
+      ai_probability: data.ai_probability ?? data.ai_generated_probability ?? null,
+      imagePreview: type === "url" ? url : URL.createObjectURL(file)
+    })
+    setPhase("imageResult")
+  } catch (err) {
+    setErrorMsg("Image detection failed. Is the backend running?")
+    setPhase("error")
   }
+}
+
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", width: "100%" }}>
