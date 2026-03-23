@@ -13,6 +13,12 @@ def report_assembler_node(state: FactCheckState) -> dict:
     print(f"ASSEMBLER - verified_claims count: {len(state.get('verified_claims', []))}")
     claims = state["verified_claims"]
 
+    # Trim evidence content to keep SSE payload small (full text was already used during verification)
+    for claim in claims:
+        for ev in claim.get("evidence", []):
+            if isinstance(ev.get("content"), str) and len(ev["content"]) > 300:
+                ev["content"] = ev["content"][:300] + "..."
+
     counts = {"TRUE": 0, "FALSE": 0, "PARTIALLY_TRUE": 0,
               "UNVERIFIABLE": 0, "CONFLICTING": 0, "OPINION": 0}
 

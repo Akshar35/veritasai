@@ -43,28 +43,38 @@ export default function App() {
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
+      let buffer = ""
 
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
 
-        const chunk = decoder.decode(value)
-        const lines = chunk.split("\n").filter(l => l.startsWith("data: "))
+        buffer += decoder.decode(value, { stream: true })
 
-        for (const line of lines) {
-          try {
-            const json = JSON.parse(line.replace("data: ", ""))
-            setEvents(prev => [...prev, json])
+        // SSE messages are separated by double newlines
+        const parts = buffer.split("\n\n")
+        // Last part may be incomplete — keep it in the buffer
+        buffer = parts.pop() || ""
 
-            if (json.type === "report") {
-              setReport(json.data)
-              setPhase("report")
+        for (const part of parts) {
+          const lines = part.split("\n").filter(l => l.startsWith("data: "))
+          for (const line of lines) {
+            try {
+              const json = JSON.parse(line.replace("data: ", ""))
+              setEvents(prev => [...prev, json])
+
+              if (json.type === "report") {
+                setReport(json.data)
+                setPhase("report")
+              }
+              if (json.type === "error") {
+                setErrorMsg(json.message || "Pipeline error occurred")
+                setPhase("error")
+              }
+            } catch (e) {
+              console.warn("SSE parse error:", e.message, line.slice(0, 200))
             }
-            if (json.type === "error") {
-              setErrorMsg(json.message || "Pipeline error occurred")
-              setPhase("error")
-            }
-          } catch {}
+          }
         }
       }
     } catch (err) {
