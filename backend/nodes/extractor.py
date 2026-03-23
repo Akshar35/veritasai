@@ -82,7 +82,7 @@ def claim_extractor_node(state: FactCheckState) -> dict:
         return json.loads(raw.strip())
 
     try:
-        claims = try_extract(active_llm)
+        claims = try_extract(active_llm)[:max_claims]
         return {
             "claims": claims,
             "current_step": "searching",
@@ -92,7 +92,7 @@ def claim_extractor_node(state: FactCheckState) -> dict:
         # Fallback to other model
         fallback_llm = groq_llm if extractor_model == "gemini" else llm
         try:
-            claims = try_extract(fallback_llm)
+            claims = try_extract(fallback_llm)[:max_claims]
             return {
                 "claims": claims,
                 "current_step": "searching",

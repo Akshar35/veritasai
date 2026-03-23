@@ -7,8 +7,8 @@ const STAGES = [
   { key: "evidence_retriever",label: "STAGE 03", title: "Cross-Reference Synthesis",   sub: "Retrieving Evidence" },
   { key: "claim_verifier",    label: "STAGE 04", title: "Claim Verification",          sub: "Applying Verdict Logic" },
   { key: "conflict_resolver", label: "STAGE 05", title: "Conflict Resolution",         sub: "Weighing Source Authority" },
-  { key: "report_assembler",  label: "STAGE 06", title: "Report Assembly",             sub: "Building Accuracy Report" },
-  { key: "ai_detector",       label: "STAGE 07", title: "AI Content Detection",        sub: "Scanning for Synthetic Media" },
+  { key: "ai_detector",       label: "STAGE 06", title: "AI Content Detection",        sub: "Scanning for Synthetic Media" },
+  { key: "report_assembler",  label: "STAGE 07", title: "Report Assembly",             sub: "Building Accuracy Report" },
 ]
 
 const CASE_REF = `VA-${Math.floor(Math.random()*900+100)}-${Math.floor(Math.random()*9000+1000)}-X`
