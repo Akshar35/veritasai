@@ -27,7 +27,7 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
       <div style={{ marginBottom: 48 }}>
         <h1 style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: 72,
+          fontSize: 56,
           fontWeight: 900,
           lineHeight: 1.05,
           color: "var(--navy)",
@@ -36,7 +36,7 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
           Every Claim.<br />Verified.
         </h1>
         <p style={{
-          fontSize: 16,
+          fontSize: 14,
           color: "var(--text-dim)",
           maxWidth: 480,
           lineHeight: 1.6,
@@ -302,14 +302,7 @@ export default function InputPanel({ onSubmit, onImageDetect, settings, setSetti
           </div>
         )}
 
-        {/* Bottom trust indicators */}
-        <div style={{ marginTop: 24, padding: "24px 32px", borderTop: "1px solid var(--border)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ display: "flex", gap: 32 }}>
-            <div style={{ display: "flex", gap: 10, color: "var(--text-muted)", fontSize: 15, fontWeight: 700, letterSpacing: 1 }}>
-              <span style={{ color: "var(--green)" }}>●</span> LIVE WEB SEARCH
-            </div>
-          </div>
-        </div>
+        {/* Bottom trust indicators removed as requested */}
       </div>
     </div>
   )

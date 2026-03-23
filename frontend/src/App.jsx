@@ -125,7 +125,7 @@ export default function App() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Header onReset={handleReset} showReset={phase !== "input"} />
-      <main style={{ flex: 1, maxWidth: 900, margin: "0 auto", width: "100%", padding: "48px 24px" }}>
+      <main style={{ padding: "32px 24px", maxWidth: 1000, margin: "0 auto", position: "relative", zIndex: 10 }}>
         {phase === "input" && (
           <InputPanel
             onSubmit={handleSubmit}
