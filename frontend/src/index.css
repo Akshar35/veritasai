@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:         #f0ebe0;
+  --bg2:        #e8e2d5;
+  --bg3:        #ddd7c8;
+  --white:      #ffffff;
+  --navy:       #1a1a2e;
+  --navy-light: #2d2d4e;
+  --border:     #d0c9b8;
+  --text:       #1a1a2e;
+  --text-dim:   #6b6455;
+  --text-muted: #9d9485;
+  --green:      #2d6a4f;
+  --green-bg:   #eaf4ef;
+  --red:        #c0392b;
+  --red-bg:     #fdf0ee;
+  --amber:      #b7650a;
+  --amber-bg:   #fdf6ec;
+  --purple:     #6d3b8e;
+  --purple-bg:  #f5f0fa;
+  --gray:       #6b6455;
+  --gray-bg:    #f0ebe0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image: radial-gradient(circle, #c8c0b0 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  /* Tighten main content padding on mobile */
+  main {
+    padding: 24px 16px !important;
+  }
+
+  /* Stack header items */
+  header {
+    padding: 0 16px !important;
+    height: auto !important;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 12px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+  header nav {
+    order: 3;
+    width: 100%;
+    gap: 16px !important;
+    justify-content: center;
+  }
+
+  /* Hero heading smaller on mobile */
+  h1 {
+    font-size: 48px !important;
+  }
+
+  h2 {
+    font-size: 28px !important;
+  }
+
+  /* Footer stacks on mobile */
+  footer {
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 20px 16px !important;
+    text-align: center;
+  }
+
+  footer nav {
+    justify-content: center !important;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  main {
+    padding: 16px 12px !important;
+  }
+
+  h1 {
+    font-size: 36px !important;
+  }
+}
