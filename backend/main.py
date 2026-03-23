@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from models import FactCheckRequest
 from graph import graph
-from nodes.ai_detector import detect_ai_image, detect_ai_text
+from nodes.ai_detector import detect_ai_image, detect_ai_image_bytes
 
 app = FastAPI()
 
@@ -27,26 +27,36 @@ def root():
 
 @app.post("/detect-image/url")
 async def detect_image_url(request: dict):
-    """Detect if an image at a URL is AI-generated"""
-    url = request.get("url", "")
+    url = request.get("url")
     if not url:
-        return JSONResponse({"error": "No URL provided"}, status_code=400)
+        return {"error": "No URL provided"}
     result = detect_ai_image(url)
-    return result
+    return {
+        "ai_generated_probability": result.get("ai_probability"),
+        "not_ai_probability": round(1 - (result.get("ai_probability") or 0), 3),
+        "all_scores": {
+            "ai_generated": result.get("ai_probability"),
+            "not_ai_generated": round(1 - (result.get("ai_probability") or 0), 3)
+        },
+        "error": result.get("error")
+    }
 
 @app.post("/detect-image/upload")
 async def detect_image_upload(file: UploadFile = File(...)):
-    """Detect if an uploaded image is AI-generated using base64"""
+    contents = await file.read()
+    return detect_ai_image_bytes(contents)
+
+async def run_image_detection(url=None, file=None):
     try:
-        contents = await file.read()
-        img_b64 = base64.b64encode(contents).decode("utf-8")
-        mime = file.content_type or "image/jpeg"
-        data_url = f"data:{mime};base64,{img_b64}"
-        # Hive API supports data URLs
-        result = detect_ai_image(data_url)
+        from nodes.ai_detector import detect_ai_image_hf
+        if url:
+            result = detect_ai_image_hf(url)
+        else:
+            contents = await file.read()
+            result = detect_ai_image_hf(file_bytes=contents)
         return result
     except Exception as e:
-        return JSONResponse({"error": str(e)}, status_code=500)
+        return {"error": str(e)}
 
 
 @app.post("/factcheck/stream")

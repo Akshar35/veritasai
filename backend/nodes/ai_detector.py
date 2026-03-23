@@ -94,6 +94,41 @@ def detect_ai_image(image_url: str) -> dict:
 
     except Exception as e:
         return {"url": image_url[:200], "ai_probability": None, "error": f"Image detection failed: {str(e)}"}
+    
+
+def detect_ai_image_bytes(file_bytes: bytes) -> dict:
+    """Detect AI image from uploaded file bytes"""
+    if not ai_image_detector:
+        return {"ai_probability": None, "error": "AI image detection model failed to load"}
+    
+    try:
+        from PIL import Image
+        import io
+        img = Image.open(io.BytesIO(file_bytes)).convert("RGB")
+        results = ai_image_detector(img)
+
+        ai_score = next((r["score"] for r in results if r["label"].lower() in ["ai-generated", "fake"]), None)
+        if ai_score is None:
+            fake_labels = ["fake", "ai", "generated", "synthetic", "ai-generated"]
+            for r in results:
+                if any(lbl in r["label"].lower() for lbl in fake_labels):
+                    ai_score = r["score"]
+                    break
+        if ai_score is None:
+            real_score = next((r["score"] for r in results if r["label"].lower() in ["real", "human"]), 0)
+            ai_score = 1.0 - real_score
+
+        return {
+            "ai_generated_probability": round(ai_score, 3),
+            "not_ai_probability": round(1 - ai_score, 3),
+            "all_scores": {
+                "ai_generated": round(ai_score, 3),
+                "not_ai_generated": round(1 - ai_score, 3)
+            },
+            "error": None
+        }
+    except Exception as e:
+        return {"ai_generated_probability": None, "error": str(e)}
 
 
 def ai_detector_node(state: FactCheckState) -> dict:
