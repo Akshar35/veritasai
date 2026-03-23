@@ -29,7 +29,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
   background-image: radial-gradient(circle, #c8c0b0 1px, transparent 1px);

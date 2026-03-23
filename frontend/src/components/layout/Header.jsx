@@ -16,7 +16,7 @@ export default function Header({ onReset, showReset }) {
       <span style={{
         fontFamily: "'Playfair Display', serif",
         fontWeight: 900,
-        fontSize: 32,
+        fontSize: 26,
         color: "var(--navy)",
         letterSpacing: "-0.5px"
       }}>VeritasAI</span>
