@@ -54,9 +54,9 @@ def build_graph():
     # Fan-in: all parallel searches merge back here
     builder.add_edge("evidence_retriever", "claim_verifier")
     builder.add_edge("claim_verifier", "conflict_resolver")
-    builder.add_edge("conflict_resolver", "report_assembler")
-    builder.add_edge("report_assembler", "ai_detector")
-    builder.add_edge("ai_detector", END)
+    builder.add_edge("conflict_resolver", "ai_detector")
+    builder.add_edge("ai_detector", "report_assembler")
+    builder.add_edge("report_assembler", END)
 
     return builder.compile()
 

@@ -207,10 +207,14 @@ async def factcheck_stream(request: FactCheckRequest):
                 if isinstance(output_data, dict) and output_data.get("report"):
                     final_state = output_data
 
-        if final_state and final_state.get("report"):
-            yield f"data: {json.dumps({'type': 'report', 'data': final_state['report']})}\n\n"
-        else:
-            yield f"data: {json.dumps({'type': 'error', 'message': 'Pipeline completed but no report generated'})}\n\n"
+        # Yield final report with defensive serialization
+        try:
+            if final_state and final_state.get("report"):
+                yield f"data: {json.dumps({'type': 'report', 'data': final_state['report']})}\n\n"
+            else:
+                yield f"data: {json.dumps({'type': 'error', 'message': 'Pipeline completed but no report was compiled'})}\n\n"
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'message': f'Serialization error: {str(e)}'})}\n\n"
 
         yield f"data: {json.dumps({'type': 'done'})}\n\n"
 

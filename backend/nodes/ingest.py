@@ -52,6 +52,13 @@ def ingest_node(state: FactCheckState) -> dict:
             errors.append(f"BeautifulSoup also failed: {str(e2)}")
             text = ""
 
+    # Word Limit: Truncate extremely long articles (e.g. Wikipedia) to ~2500 words
+    # This prevents JSON serialization hangs and context window issues
+    words = text.split()
+    if len(words) > 2500:
+        text = " ".join(words[:2500]) + "..."
+        errors.append("Article truncated to 2500 words for processing stability.")
+
     return {
         "article_text": text,
         "article_images": images,
