@@ -47,7 +47,7 @@ VeritasAI is a production-grade, multi-agent fact-checking system that automatic
 
 ### LangGraph Pipeline
 ```
-Input (text / URL)
+ Input (text / URL)
         ↓
 ┌───────────────┐
 │  ingest_node  │  — URL scraping (newspaper3k → BeautifulSoup fallback)
@@ -283,14 +283,4 @@ Open `http://localhost:5173`
 
 ## Team
 
-Built for NCR College Hackathon Finals — 24 hours
-
-- Akshar Jha
-- Aiman
-- Ankit
-
----
-
-## License
-
-MIT
+Built for NCR College Hackathon Finals
